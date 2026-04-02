@@ -1,9 +1,9 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
- * UC2: Add Passenger Bogies to Train (ArrayList Operations)
- * Demonstrates CRUD operations: adding, removing, and checking for elements.
+ * UC3: Track Unique Bogie IDs (Set – HashSet)
+ * Demonstrates how to enforce uniqueness and prevent duplicate data entry.
  */
 public class TrainConsistManagementApp {
 
@@ -11,32 +11,31 @@ public class TrainConsistManagementApp {
         // 1. Initialize the App
         System.out.println("=== Train Consist Management App ===");
 
-        // 2. Create an ArrayList for passenger bogies
-        List<String> passengerBogies = new ArrayList<>();
+        // 2. Create a HashSet for unique Bogie IDs
+        // We use the Set interface to enforce the rule: No duplicates allowed.
+        Set<String> bogieIds = new HashSet<>();
 
-        // 3. ADD: Inserting elements into the list
-        passengerBogies.add("Sleeper");
-        passengerBogies.add("AC Chair");
-        passengerBogies.add("First Class");
+        // 3. Adding Bogie IDs (including duplicates)
+        System.out.println("Registering bogies in the system...");
 
-        // 4. READ: Display the list after insertion
-        System.out.println("Bogies added to the train.");
-        System.out.println("Current Consist: " + passengerBogies);
+        bogieIds.add("BG101");
+        bogieIds.add("BG102");
+        bogieIds.add("BG103");
 
-        // 5. DELETE: Removing a specific bogie
-        System.out.println("\nRemoving 'AC Chair' for maintenance...");
-        passengerBogies.remove("AC Chair");
+        // Attempting to add a duplicate ID
+        System.out.println("Attempting to add duplicate ID: BG101");
+        boolean isAdded = bogieIds.add("BG101");
 
-        // 6. SEARCH: Checking if a specific bogie exists using contains()
-        System.out.print("Checking if 'Sleeper' bogie is attached: ");
-        if (passengerBogies.contains("Sleeper")) {
-            System.out.println("Yes, Sleeper is present.");
-        } else {
-            System.out.println("No, Sleeper not found.");
+        // 4. Feedback on duplicate attempt
+        if (!isAdded) {
+            System.out.println("Warning: Bogie BG101 already exists. Registration rejected.");
         }
 
-        // 7. FINAL STATE: Print the list state and size
-        System.out.println("\nFinal Train Consist: " + passengerBogies);
-        System.out.println("Total Bogie Count: " + passengerBogies.size());
+        // 5. Display the final set of unique IDs
+        System.out.println("\nFinal Unique Bogie Registry:");
+        System.out.println(bogieIds);
+
+        // 6. Demonstrate Unordered Property
+        System.out.println("Total Unique Bogies Registered: " + bogieIds.size());
     }
 }
