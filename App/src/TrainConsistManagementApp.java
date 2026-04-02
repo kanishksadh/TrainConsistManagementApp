@@ -1,9 +1,8 @@
-import java.util.HashSet;
-import java.util.Set;
+import java.util.LinkedList;
 
 /**
- * UC3: Track Unique Bogie IDs (Set – HashSet)
- * Demonstrates how to enforce uniqueness and prevent duplicate data entry.
+ * UC4: Maintain Ordered Bogie IDs (LinkedList)
+ * Models the physical chaining of a train where order and insertion efficiency matter.
  */
 public class TrainConsistManagementApp {
 
@@ -11,31 +10,36 @@ public class TrainConsistManagementApp {
         // 1. Initialize the App
         System.out.println("=== Train Consist Management App ===");
 
-        // 2. Create a HashSet for unique Bogie IDs
-        // We use the Set interface to enforce the rule: No duplicates allowed.
-        Set<String> bogieIds = new HashSet<>();
+        // 2. Create a LinkedList for the train consist
+        // LinkedList is ideal for frequent insertions and deletions.
+        LinkedList<String> trainConsist = new LinkedList<>();
 
-        // 3. Adding Bogie IDs (including duplicates)
-        System.out.println("Registering bogies in the system...");
+        // 3. Sequential Addition
+        System.out.println("Forming the initial train consist...");
+        trainConsist.add("Engine");   // Position 0
+        trainConsist.add("Sleeper");  // Position 1
+        trainConsist.add("AC");       // Position 2
+        trainConsist.add("Cargo");    // Position 3
+        trainConsist.add("Guard");    // Position 4
 
-        bogieIds.add("BG101");
-        bogieIds.add("BG102");
-        bogieIds.add("BG103");
+        System.out.println("Initial Train: " + trainConsist);
 
-        // Attempting to add a duplicate ID
-        System.out.println("Attempting to add duplicate ID: BG101");
-        boolean isAdded = bogieIds.add("BG101");
+        // 4. Middle Insertion: Adding a Pantry Car at position 2
+        // In a LinkedList, this only involves updating node pointers.
+        System.out.println("\nInserting 'Pantry Car' at position 2...");
+        trainConsist.add(2, "Pantry Car");
 
-        // 4. Feedback on duplicate attempt
-        if (!isAdded) {
-            System.out.println("Warning: Bogie BG101 already exists. Registration rejected.");
-        }
+        // 5. Removing the Head and Tail
+        // Simulating detaching the Engine and the Guard coach
+        System.out.println("Detaching the Engine (First) and Guard coach (Last)...");
+        trainConsist.removeFirst();
+        trainConsist.removeLast();
 
-        // 5. Display the final set of unique IDs
-        System.out.println("\nFinal Unique Bogie Registry:");
-        System.out.println(bogieIds);
+        // 6. Display Final Ordered State
+        System.out.println("\nFinal Ordered Train Consist:");
+        System.out.println(trainConsist);
 
-        // 6. Demonstrate Unordered Property
-        System.out.println("Total Unique Bogies Registered: " + bogieIds.size());
+        // 7. Demonstration of Node linkage
+        System.out.println("Total Bogies remaining: " + trainConsist.size());
     }
 }
